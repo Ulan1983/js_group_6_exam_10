@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
 	res.send(comments);
 });
 
-router.get('/?news_id=:id', async (req, res) => {
+router.get('/', async (req, res) => {
 	const comment = await fileDb.getCommentsItemById(req.params.id);
 	res.send(comment);
 });

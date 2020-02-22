@@ -1,9 +1,10 @@
-import {FETCH_NEWS_SUCCESS, FETCH_SINGLE_POST_SUCCESS} from "./actions";
+import {FETCH_COMMENTS_SUCCESS, FETCH_NEWS_SUCCESS, FETCH_SINGLE_POST_SUCCESS} from "./actions";
 
 
 const initialState = {
 	news: [],
-	singlePost: null
+	singlePost: null,
+	comments: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -17,6 +18,11 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				singlePost: action.post
+			};
+		case FETCH_COMMENTS_SUCCESS:
+			return {
+				...state,
+				comments: action.comments
 			};
 		default:
 			return state

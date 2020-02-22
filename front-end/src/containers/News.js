@@ -31,6 +31,7 @@ class News extends Component {
 						</CardText>
 						<NavLink to={'/news/' + post.id}>Read full post</NavLink>
 						<Button
+							type='submit'
 							style={{width: '100px', marginTop: '10px'}}
 							id={post.id}
 							onClick={this.props.deletePost}

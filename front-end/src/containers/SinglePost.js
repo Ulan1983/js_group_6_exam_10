@@ -1,12 +1,18 @@
 import React, {Component, Fragment} from 'react';
-import {Card, CardText} from "reactstrap";
-import {fetchSinglePost} from "../store/actions";
+import {Button, Card, CardText} from "reactstrap";
+import {createNewComment, fetchSinglePost} from "../store/actions";
 import {connect} from "react-redux";
+import CommentForm from "../components/CommentForm";
 
 class SinglePost extends Component {
+
 	componentDidMount() {
 		this.props.fetchSinglePost(this.props.match.params.id);
 	}
+
+	createCommentHandler = async (formData) => {
+		await this.props.createNewComment(formData);
+	};
 
 	render() {
 		return (
@@ -31,17 +37,40 @@ class SinglePost extends Component {
 						</CardText>
 					</Card>
 				)}
+				<h1 style={{marginTop: '10px'}}>Comments</h1>
+				{this.props.comments.map(comment => (
+					<Card
+						key={comment.id}
+						style={{marginTop: '20px', padding: '10px'}}
+					>
+						<CardText style={{fontWeight: 'bold'}}>
+							{comment.name} wrote:
+						</CardText>
+						<CardText>
+							{comment.comment}
+						</CardText>
+						<Button
+							type='submit'
+							style={{width: '100px'}}
+						>Delete</Button>
+					</Card>
+				))}
+				<CommentForm
+					onSubmit={this.createCommentHandler}
+				/>
 			</Fragment>
 		);
 	}
 }
 
 const mapStateToProps = state => ({
-	singlePost: state.singlePost
+	singlePost: state.singlePost,
+	comments: state.comments
 });
 
 const mapDispatchToProps = dispatch => ({
-	fetchSinglePost: id => dispatch(fetchSinglePost(id))
+	fetchSinglePost: id => dispatch(fetchSinglePost(id)),
+	createNewComment: data => dispatch(createNewComment(data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SinglePost);

@@ -67,8 +67,8 @@ module.exports = {
 	async addComment(comment) {
 		comment.id = nanoid();
 
-		if (!comment.author) {
-			comment.author = 'Anonymous';
+		if (!comment.name) {
+			comment.name = 'Anonymous';
 		}
 		commentsData.push(comment);
 		await this.saveCategory();
