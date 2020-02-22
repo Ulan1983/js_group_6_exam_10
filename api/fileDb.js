@@ -60,7 +60,7 @@ module.exports = {
 	},
 	async addItem(item) {
 		item.id = nanoid();
-		item.date = new Date();
+		item.date = new Date().toISOString();
 		newsData.push(item);
 		await this.save();
 	},
