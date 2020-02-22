@@ -73,13 +73,13 @@ module.exports = {
 		commentsData.push(comment);
 		await this.saveCategory();
 	},
-	async deleteItem(item) {
-		const itemIndex = newsData.findIndex(i => i.id === item.id);
+	async deletePost(id) {
+		const itemIndex = newsData.findIndex(i => i.id === id);
 		newsData.splice(itemIndex, 1);
 		await this.save();
 	},
-	async deleteComment(comment) {
-		const itemIndex = commentsData.findIndex(i => i.id === comment.id);
+	async deleteComment(id) {
+		const itemIndex = commentsData.findIndex(i => i.id === id);
 		commentsData.splice(itemIndex, 1);
 		await this.saveCategory();
 	},

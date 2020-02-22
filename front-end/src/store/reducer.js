@@ -1,8 +1,9 @@
-import {FETCH_NEWS_SUCCESS} from "./actions";
+import {FETCH_NEWS_SUCCESS, FETCH_SINGLE_POST_SUCCESS} from "./actions";
 
 
 const initialState = {
-	news: []
+	news: [],
+	singlePost: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -11,6 +12,11 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				news: action.news
+			};
+		case FETCH_SINGLE_POST_SUCCESS:
+			return {
+				...state,
+				singlePost: action.post
 			};
 		default:
 			return state

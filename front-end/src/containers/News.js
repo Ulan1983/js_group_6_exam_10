@@ -1,7 +1,8 @@
 import React, {Component, Fragment} from 'react';
-import {fetchNews} from "../store/actions";
+import {deletePost, fetchNews} from "../store/actions";
 import {connect} from "react-redux";
-import {Card, CardText} from "reactstrap";
+import {Button, Card, CardText} from "reactstrap";
+import {NavLink} from "react-router-dom";
 
 class News extends Component {
 	componentDidMount() {
@@ -28,6 +29,14 @@ class News extends Component {
 						<CardText>
 							{post.date}
 						</CardText>
+						<NavLink to={'/news/' + post.id}>Read full post</NavLink>
+						<Button
+							style={{width: '100px', marginTop: '10px'}}
+							id={post.id}
+							onClick={this.props.deletePost}
+						>
+							Delete
+						</Button>
 					</Card>
 				))}
 			</Fragment>
@@ -40,7 +49,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	fetchNews: () => dispatch(fetchNews())
+	fetchNews: () => dispatch(fetchNews()),
+	deletePost: id => dispatch(deletePost(id.currentTarget.id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(News);

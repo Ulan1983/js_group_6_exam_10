@@ -3,6 +3,7 @@ import {Container, Nav, Navbar, NavbarBrand, NavItem, NavLink} from "reactstrap"
 import {NavLink as RouterNavLink, Route, Switch} from 'react-router-dom';
 import News from "./containers/News";
 import NewPost from "./containers/NewPost";
+import SinglePost from "./containers/SinglePost";
 function App() {
   return (
     <Fragment>
@@ -17,7 +18,8 @@ function App() {
       <Container>
         <Switch>
           <Route path='/' exact component={News}/>
-          <Route path='/news/new' exact component={NewPost}/>
+          <Route path='/news/new' component={NewPost}/>
+          <Route path='/news/:id' component={SinglePost}/>
         </Switch>
       </Container>
     </Fragment>

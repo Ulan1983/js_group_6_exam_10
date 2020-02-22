@@ -49,7 +49,7 @@ router.post('/', upload.single('image'), async (req, res) => {
 });
 
 router.delete('/:id', async (req, res) => {
-	await fileDb.deleteItem(req.params.id);
+	await fileDb.deletePost(req.params.id);
 	res.send("News has been deleted");
 });
 
