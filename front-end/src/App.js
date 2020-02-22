@@ -1,25 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import React, {Fragment} from 'react';
+import {Container, Nav, Navbar, NavbarBrand, NavItem, NavLink} from "reactstrap";
+import {NavLink as RouterNavLink, Route, Switch} from 'react-router-dom';
+import News from "./containers/News";
+import NewNews from "./containers/NewNews";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      <Navbar color="light" light >
+        <NavbarBrand tag={RouterNavLink} to='/'>News</NavbarBrand>
+          <Nav className="float-right" navbar>
+            <NavItem>
+              <NavLink tag={RouterNavLink} to='/news/new'>Add new post</NavLink>
+            </NavItem>
+          </Nav>
+      </Navbar>
+      <Container>
+        <Switch>
+          <Route path='/' exact component={News}/>
+          <Route path='/news/new' exact component={NewNews}/>
+        </Switch>
+      </Container>
+    </Fragment>
   );
 }
 
