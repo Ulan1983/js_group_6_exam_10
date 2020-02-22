@@ -15,34 +15,23 @@ const upload = multer({storage});
 
 const router = express.Router();
 
-// router.get('/', async (req, res) => {
-// 	const comments = await fileDb.getCommentsItems();
-// 	res.send(comments);
-// });
-//
-// router.get('/', async (req, res) => {
-// 	const comment = await fileDb.getCommentsItemById(req.params.id);
-// 	res.send(comment);
-// });
-
 router.get('/', async (req, res) => {
 	const comments = await fileDb.getCommentsItems();
-	let commentsByNewID = [];
+	let commentsByID = [];
 	if (!req.query.news_Id) {
 		res.send(comments);
 	} else {
 		comments.forEach(comment => {
-			if (comment.id === req.query.news_Id) {
-				commentsByNewID.push(comment);
+			if (comment.news_Id === req.query.news_Id) {
+				commentsByID.push(comment);
 			}
 		});
-		res.send(commentsByNewID);
+		res.send(commentsByID);
 	}
+	res.send(comments);
 });
 
 router.post('/', upload.single('image'), async (req, res) => {
-
-
 	await fileDb.addComment(req.body);
 	res.send(req.body.id);
 });

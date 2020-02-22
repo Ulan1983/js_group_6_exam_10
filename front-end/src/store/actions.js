@@ -5,12 +5,14 @@ export const CREATE_NEW_POST_SUCCESS = 'CREATE_NEW_POST_SUCCESS';
 export const FETCH_SINGLE_POST_SUCCESS = 'FETCH_SINGLE_POST_SUCCESS';
 export const FETCH_COMMENTS_SUCCESS = 'FETCH_COMMENTS_SUCCESS';
 export const CREATE_NEW_COMMENT_SUCCESS = 'CREATE_NEW_COMMENT_SUCCESS';
+export const FETCH_COMMENTS_BY_ID_SUCCESS = 'FETCH_COMMENTS_BY_ID_SUCCESS';
 
 export const fetchNewsSuccess = news => ({type: FETCH_NEWS_SUCCESS, news});
 export const createNewPostSuccess = () => ({type: CREATE_NEW_POST_SUCCESS});
 export const fetchSinglePostSuccess = post => ({type: FETCH_SINGLE_POST_SUCCESS, post});
 export const fetchCommentsSuccess = comments => ({type: FETCH_COMMENTS_SUCCESS, comments});
 export const createNewCommentSuccess = () => ({type: CREATE_NEW_COMMENT_SUCCESS});
+export const fetchCommentsByIdSuccess = comments => ({type: FETCH_COMMENTS_BY_ID_SUCCESS, comments});
 
 
 export const fetchNews = () => {
@@ -91,4 +93,17 @@ export const deleteComment = id => {
 		}
 	}
 };
+
+export const fetchCommentsById = id => {
+	return async (dispatch) => {
+		try {
+			const response = await axiosApi.get('/comments?news_Id=' + id);
+			dispatch(fetchCommentsByIdSuccess(response.data));
+		} catch (e) {
+			console.error('Fetch comments failed', e);
+		}
+	}
+};
+
+
 

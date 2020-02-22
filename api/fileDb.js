@@ -55,9 +55,6 @@ module.exports = {
 	async getItemById(id) {
 		return newsData.find(item => item.id === id);
 	},
-	async getCommentsItemById(id) {
-		return commentsData.find(item => item.id === id);
-	},
 	async addItem(item) {
 		item.id = nanoid();
 		item.date = new Date().toISOString();
