@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {Button, Card, CardText} from "reactstrap";
-import {createNewComment, fetchSinglePost} from "../store/actions";
+import {createNewComment, deleteComment, fetchSinglePost} from "../store/actions";
 import {connect} from "react-redux";
 import CommentForm from "../components/CommentForm";
 
@@ -52,6 +52,8 @@ class SinglePost extends Component {
 						<Button
 							type='submit'
 							style={{width: '100px'}}
+							id={comment.id}
+							onClick={this.props.deleteComment}
 						>Delete</Button>
 					</Card>
 				))}
@@ -70,7 +72,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 	fetchSinglePost: id => dispatch(fetchSinglePost(id)),
-	createNewComment: data => dispatch(createNewComment(data))
+	createNewComment: data => dispatch(createNewComment(data)),
+	deleteComment: id => dispatch(deleteComment(id.currentTarget.id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SinglePost);

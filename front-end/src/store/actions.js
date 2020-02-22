@@ -81,3 +81,14 @@ export const createNewComment = data => {
 	}
 };
 
+export const deleteComment = id => {
+	return async (dispatch) => {
+		try {
+			await axiosApi.delete('/comments/' + id);
+			dispatch(fetchComments());
+		} catch (e) {
+			console.error('Failed comment delete', e);
+		}
+	}
+};
+
