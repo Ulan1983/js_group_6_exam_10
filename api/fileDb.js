@@ -60,11 +60,16 @@ module.exports = {
 	},
 	async addItem(item) {
 		item.id = nanoid();
+		item.date = new Date();
 		newsData.push(item);
 		await this.save();
 	},
 	async addComment(comment) {
 		comment.id = nanoid();
+
+		if (!comment.author) {
+			comment.author = 'Anonymous';
+		}
 		commentsData.push(comment);
 		await this.saveCategory();
 	},
@@ -75,14 +80,8 @@ module.exports = {
 	},
 	async deleteComment(comment) {
 		const itemIndex = commentsData.findIndex(i => i.id === comment.id);
-		for (let com in commentsData) {
-			if (commentsData[com].id === newsData[com].newsId) {
-				throw new Error('Error');
-			} else {
-				commentsData.splice(itemIndex, 1);
-				await this.saveCategory();
-			}
-		}
+		commentsData.splice(itemIndex, 1);
+		await this.saveCategory();
 	},
 	async save() {
 		const fileContents = JSON.stringify(newsData, null, 2);
